@@ -1,0 +1,12 @@
+{
+  "title": "Saharier — Computer Science, Software & Research",
+  "language": "en",
+  "description": "Saharier — final-year CSE student at UIU, Bangladesh. Explore research in AI/ML, software development, system architecture, and design.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
