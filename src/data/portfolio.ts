@@ -27,12 +27,22 @@ export const researchTechnologies = [
   "scikit-learn",
 ];
 
-export const supportingResearch = [
+export type ResearchVisualKind = "poultry" | "solar" | "shorts";
+
+export const supportingResearch: {
+  title: string;
+  label: string;
+  description: string;
+  flow: string[];
+  visual: ResearchVisualKind;
+  note: string;
+}[] = [
   {
     title: "Smart Poultry Farm",
     label: "Hardware & machine learning",
     description: "Exploring chicken health monitoring through the analysis of poultry droppings.",
     flow: ["Visual samples", "ML analysis", "Health monitoring"],
+    visual: "poultry",
     note: "An academic hardware and machine learning project investigating poultry health monitoring. The workflow is conceptual; no health outcomes or model performance are claimed.",
   },
   {
@@ -40,6 +50,7 @@ export const supportingResearch = [
     label: "Microprocessor course project",
     description: "An intelligent solar panel cleaning system incorporating machine learning.",
     flow: ["Solar panel", "Intelligent control", "Cleaning system"],
+    visual: "solar",
     note: "A microprocessor course project combining intelligent hardware and machine learning. The diagram illustrates scope, not a verified deployed architecture or efficiency result.",
   },
   {
@@ -48,6 +59,7 @@ export const supportingResearch = [
     description:
       "A local automated workflow for short-form video generation. The system works; output quality and consistency are still being improved.",
     flow: ["Local workflow", "AI automation", "Short-form video"],
+    visual: "shorts",
     note: "This working personal automation project remains iterative. Output quality and consistency are active areas of improvement, rather than finished production guarantees.",
   },
 ];
@@ -112,8 +124,8 @@ export const designProjects: Project[] = [
 ];
 
 export const skills = {
-  Programming: ["Python", "Java", "JavaScript", "C/C++", "SQL"],
-  "AI & Machine Learning": [
+  "Programming Languages": ["Python", "Java", "JavaScript", "C/C++", "SQL"],
+  "AI/ML & Research": [
     "YOLOv8",
     "OpenCV",
     "OpenCLIP",
@@ -121,6 +133,15 @@ export const skills = {
     "vLLM",
     "scikit-learn",
   ],
-  Development: ["React", "Next.js", "Django", "HTML", "CSS"],
-  Tools: ["Git", "GitHub", "VS Code", "Google Colab", "Linux", "MySQL", "Figma", "Jira"],
+  "Application Development": ["React", "Next.js", "Django", "HTML", "CSS"],
+  "Tools & Platforms": [
+    "Git",
+    "GitHub",
+    "VS Code",
+    "Google Colab",
+    "Linux",
+    "MySQL",
+    "Figma",
+    "Jira",
+  ],
 };

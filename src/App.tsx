@@ -1,8 +1,10 @@
 import { useEffect } from "react";
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
 import { HeroComposition } from "./components/HeroComposition";
 import { ProjectSections } from "./components/ProjectSections";
 import { ContactSection } from "./components/ContactSection";
-import { Arrow, PortraitPlaceholder } from "./components/Shared";
+import { Arrow, PortfolioMark, PortraitPlaceholder } from "./components/Shared";
 import { profile, skills } from "./data/portfolio";
 
 export default function App() {
@@ -44,6 +46,114 @@ export default function App() {
       observer.observe(element);
     });
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const anchorEasing = (progress: number) =>
+      progress < 0.5
+        ? 4 * progress ** 3
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+    const lenis = new Lenis({
+      lerp: 0.16,
+      smoothWheel: !prefersReducedMotion,
+      wheelMultiplier: 1,
+      syncTouch: !prefersReducedMotion,
+      syncTouchLerp: 0.1,
+    });
+    let frame = 0;
+    const animate = (time: number) => {
+      lenis.raf(time);
+      frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    let anchorFrame = 0;
+
+    const cancelAnchorAnimation = () => {
+      if (!anchorFrame) return;
+      cancelAnimationFrame(anchorFrame);
+      anchorFrame = 0;
+    };
+
+    const handleAnchorClick = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      if (!(event.target instanceof Element)) return;
+
+      const link = event.target.closest<HTMLAnchorElement>('a[href^="#"]:not(.skip-link)');
+      if (!link) return;
+
+      const destination = new URL(link.href, window.location.href);
+      if (
+        destination.origin !== window.location.origin ||
+        destination.pathname !== window.location.pathname ||
+        destination.search !== window.location.search ||
+        !destination.hash
+      )
+        return;
+
+      const targetId = decodeURIComponent(destination.hash.slice(1));
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      event.preventDefault();
+      if (window.location.hash !== destination.hash) {
+        window.history.pushState(null, "", destination.hash);
+      }
+
+      const scrollOffset = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).scrollPaddingTop,
+      );
+      const offset = Number.isFinite(scrollOffset) ? scrollOffset : 0;
+
+      if (prefersReducedMotion) {
+        cancelAnchorAnimation();
+        const startY = window.scrollY;
+        const targetY = Math.max(
+          0,
+          target.getBoundingClientRect().top + startY - offset,
+        );
+        const startTime = performance.now();
+        const duration = 1350;
+
+        const animateAnchor = (time: number) => {
+          const progress = Math.min((time - startTime) / duration, 1);
+          window.scrollTo(0, startY + (targetY - startY) * anchorEasing(progress));
+          if (progress < 1) {
+            anchorFrame = requestAnimationFrame(animateAnchor);
+          } else {
+            anchorFrame = 0;
+          }
+        };
+        anchorFrame = requestAnimationFrame(animateAnchor);
+        return;
+      }
+
+      lenis.scrollTo(target, {
+        duration: 1.35,
+        easing: anchorEasing,
+        offset: -offset,
+      });
+    };
+    document.addEventListener("click", handleAnchorClick);
+    document.addEventListener("wheel", cancelAnchorAnimation, { passive: true });
+    document.addEventListener("touchstart", cancelAnchorAnimation, { passive: true });
+
+    return () => {
+      document.removeEventListener("click", handleAnchorClick);
+      document.removeEventListener("wheel", cancelAnchorAnimation);
+      document.removeEventListener("touchstart", cancelAnchorAnimation);
+      cancelAnchorAnimation();
+      cancelAnimationFrame(frame);
+      lenis.destroy();
+    };
   }, []);
 
   return (
@@ -134,9 +244,9 @@ export default function App() {
       </main>
       <footer className="site-footer">
         <a className="wordmark" href="#home">
-          <span className="brand-mark">S</span> Saharier<span className="accent">.</span>
+          <PortfolioMark /> Saharier<span className="accent">.</span>
         </a>
-        <p>Personal portfolio · CSE at UIU · Bangladesh</p>
+        <p>CSE at UIU · Bangladesh</p>
         <a className="text-link" href="#home">
           Back to top <Arrow up />
         </a>

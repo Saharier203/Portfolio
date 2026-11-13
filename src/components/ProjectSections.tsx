@@ -5,8 +5,9 @@ import {
   software,
   supportingResearch,
   type Project,
+  type ResearchVisualKind,
 } from "../data/portfolio";
-import { ProjectNote, Tags, WindowBar } from "./Shared";
+import { Tags, WindowBar } from "./Shared";
 
 const categories = [
   ["Research & Intelligence", "research"],
@@ -15,6 +16,145 @@ const categories = [
   ["Cybersecurity", "security"],
   ["Design & Management", "design"],
 ];
+
+const diagramIcons = {
+  video: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m10 9 5 3-5 3z" fill="currentColor" stroke="none" />
+    </>
+  ),
+  audio: <path d="M4 10v4m4-8v12m4-15v18m4-12v6m4-4v2" />,
+  text: (
+    <>
+      <path d="M7 3h7l4 4v14H7zM14 3v5h5" />
+      <path d="M10 12h5m-5 4h5" />
+    </>
+  ),
+  visual: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <circle cx="9" cy="10" r="1.5" />
+      <path d="m21 15-5-5-8 9" />
+    </>
+  ),
+  summary: (
+    <>
+      <path d="M7 3h10v18H7zM10 7h4" />
+      <path d="m9 13 2 2 4-4" />
+    </>
+  ),
+  interface: (
+    <>
+      <rect x="3" y="4" width="18" height="14" rx="2" />
+      <path d="M8 21h8m-4-3v3" />
+    </>
+  ),
+  content: (
+    <>
+      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5z" />
+      <path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20M8 7h8m-8 4h7" />
+    </>
+  ),
+  learning: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m10 8 6 4-6 4z" fill="currentColor" stroke="none" />
+    </>
+  ),
+  assessment: (
+    <>
+      <rect x="5" y="4" width="14" height="17" rx="2" />
+      <path d="M9 4V2h6v2m-7 8 2 2 4-4" />
+    </>
+  ),
+  data: (
+    <>
+      <ellipse cx="12" cy="5" rx="8" ry="3" />
+      <path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" />
+    </>
+  ),
+};
+
+type DiagramIconName = keyof typeof diagramIcons;
+
+function DiagramIcon({ name }: { name: DiagramIconName }) {
+  return (
+    <svg
+      className="diagram-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {diagramIcons[name]}
+    </svg>
+  );
+}
+
+function ResearchArtwork({ kind }: { kind: ResearchVisualKind }) {
+  return (
+    <div className={`research-artwork research-artwork-${kind}`} aria-hidden="true">
+      {kind === "poultry" ? (
+        <svg viewBox="0 0 360 160" fill="none">
+          <circle className="artwork-orbit" cx="184" cy="82" r="57" />
+          <circle className="artwork-orbit artwork-orbit-small" cx="184" cy="82" r="38" />
+          <path
+            className="artwork-line"
+            d="M66 123h228M83 115l18-16m176 16-18-16"
+            strokeLinecap="round"
+          />
+          <ellipse className="artwork-bird" cx="178" cy="91" rx="43" ry="28" />
+          <path className="artwork-wing" d="M151 91c13-19 39-20 54-3-13 15-35 18-54 3Z" />
+          <circle className="artwork-bird" cx="211" cy="61" r="17" />
+          <path className="artwork-comb" d="M203 46c-5-11 5-13 9-5 5-10 14-4 9 3" />
+          <path className="artwork-beak" d="m226 59 17 7-17 7" />
+          <circle className="artwork-eye" cx="216" cy="59" r="2" />
+          <path className="artwork-line" d="m165 116-5 17m28-16 4 16" strokeLinecap="round" />
+          <path className="artwork-line" d="m153 134 8-1m27 0 8 1" strokeLinecap="round" />
+          <ellipse className="artwork-egg" cx="112" cy="111" rx="8" ry="11" />
+          <ellipse className="artwork-egg" cx="133" cy="113" rx="7" ry="9" />
+          <circle className="artwork-spark" cx="271" cy="49" r="3" />
+          <circle className="artwork-spark" cx="89" cy="70" r="2" />
+        </svg>
+      ) : kind === "solar" ? (
+        <svg viewBox="0 0 360 160" fill="none">
+          <circle className="artwork-sun" cx="100" cy="56" r="22" />
+          <path className="artwork-line" d="M100 20v-8m0 88v-8M64 56h-9m99 0h-9M75 31l-7-7m64 64-7-7m0-50 7-7m-64 64 7-7" />
+          <path className="artwork-panel" d="m102 91 161-16 28 57-165 15-24-56Z" />
+          <path className="artwork-grid" d="m137 87 22 55m24-58 21 55m24-58 20 55M112 110l163-16m-151 39 164-16" />
+          <path className="artwork-line" d="m130 64 137 13" strokeLinecap="round" />
+          <path className="artwork-brush" d="m201 58 76 8-5 12-76-8z" />
+          <path className="artwork-line" d="m219 78-18 25" strokeLinecap="round" />
+          <circle className="artwork-spark" cx="303" cy="43" r="3" />
+          <circle className="artwork-spark" cx="75" cy="113" r="2" />
+        </svg>
+      ) : (
+        <svg viewBox="0 0 360 160" fill="none">
+          <path className="artwork-filmstrip" d="M70 38h220v83H70z" />
+          <path className="artwork-film-perforation" d="M82 38v83m196-83v83" />
+          <rect className="artwork-frame" x="96" y="52" width="48" height="54" rx="5" />
+          <rect className="artwork-frame artwork-frame-accent" x="156" y="52" width="48" height="54" rx="5" />
+          <rect className="artwork-frame" x="216" y="52" width="48" height="54" rx="5" />
+          <circle className="artwork-play" cx="180" cy="79" r="13" />
+          <path className="artwork-play-mark" d="m177 72 10 7-10 7z" />
+          <path className="artwork-line" d="M85 137h190" strokeLinecap="round" />
+          <path className="artwork-wave" d="M103 137v-5m14 5v-10m14 10v-7m14 7v-14m14 14v-5m14 5v-10m14 10v-7m14 7v-15m14 15v-6m14 6v-11m14 11v-7" strokeLinecap="round" />
+          <circle className="artwork-spark" cx="301" cy="48" r="3" />
+        </svg>
+      )}
+    </div>
+  );
+}
+
+const researchStepIcons: Record<ResearchVisualKind, DiagramIconName[]> = {
+  poultry: ["visual", "data", "assessment"],
+  solar: ["visual", "data", "interface"],
+  shorts: ["video", "data", "summary"],
+};
 
 function ProductPreview({ kind }: { kind: Project["kind"] }) {
   return (
@@ -32,7 +172,17 @@ function ProductPreview({ kind }: { kind: Project["kind"] }) {
             <div className="mock-search">Search inventory</div>
             {["Product overview", "Stock details", "Categories"].map((label, index) => (
               <div className="inventory-item" key={label}>
-                <span className={`item-shape shape-${index}`} />
+                <span className={`item-shape shape-${index}`}>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    {index === 0 ? (
+                      <path d="m4 8 8-4 8 4v9l-8 4-8-4V8Zm0 0 8 4 8-4m-8 4v9" />
+                    ) : index === 1 ? (
+                      <path d="M9 5h6m-5 0v3l-3 3v7h10v-7l-3-3V5m-8 8h14" />
+                    ) : (
+                      <path d="M6 4h12v16H6zM9 8h6m-6 4h6m-6 4h4" />
+                    )}
+                  </svg>
+                </span>
                 <div>
                   <strong>{label}</strong>
                   <i />
@@ -76,6 +226,13 @@ function ProductPreview({ kind }: { kind: Project["kind"] }) {
             <div className="editor-hint">
               <i /> AI-assisted learning <span>GUIDANCE</span>
             </div>
+            <div className="code-visual" aria-hidden="true">
+              <span>&lt;/&gt;</span>
+              <i />
+              <i />
+              <i />
+              <b />
+            </div>
           </div>
         ) : kind === "social" ? (
           <div className="desktop-mockup social-mockup">
@@ -98,6 +255,9 @@ function ProductPreview({ kind }: { kind: Project["kind"] }) {
                   </div>
                 </div>
                 <div className="social-image">
+                  <i className="social-orb social-orb-one" />
+                  <i className="social-orb social-orb-two" />
+                  <i className="social-orb social-orb-three" />
                   <span>
                     Ideas worth
                     <br />
@@ -115,11 +275,11 @@ function ProductPreview({ kind }: { kind: Project["kind"] }) {
           <div className="board-mockup">
             <small>PROJECT WORKSPACE</small>
             <h4>Ideas → a plan.</h4>
-            <div className="board-columns">
-              {["PLAN", "COORDINATE", "REVIEW"].map((label) => (
-                <div key={label}>
-                  <span>{label}</span>
-                  <i />
+            <div className="board-roadmap">
+              {["PLAN", "COORDINATE", "REVIEW"].map((label, index) => (
+                <div className="roadmap-step" key={label}>
+                  <span className="roadmap-node">{index + 1}</span>
+                  <b>{label}</b>
                   <i />
                 </div>
               ))}
@@ -141,6 +301,21 @@ function ProductPreview({ kind }: { kind: Project["kind"] }) {
                 <br />
                 Better possibilities.
               </h4>
+              <div className="recruitment-art" aria-hidden="true">
+                <svg viewBox="0 0 260 48" fill="none">
+                  <circle cx="31" cy="24" r="18" />
+                  <circle cx="31" cy="18" r="5" />
+                  <path d="M20 36c2-7 6-10 11-10s9 3 11 10" />
+                  <circle cx="74" cy="24" r="18" />
+                  <circle cx="74" cy="18" r="5" />
+                  <path d="M63 36c2-7 6-10 11-10s9 3 11 10" />
+                  <circle cx="117" cy="24" r="18" />
+                  <circle cx="117" cy="18" r="5" />
+                  <path d="M106 36c2-7 6-10 11-10s9 3 11 10" />
+                  <path d="M153 14h83M153 24h66M153 34h74" />
+                  <circle className="recruitment-spark" cx="241" cy="24" r="4" />
+                </svg>
+              </div>
               <div className="mock-search">
                 Role, keyword, or skill <span>Search</span>
               </div>
@@ -233,30 +408,21 @@ export function ProjectSections() {
               text, and visual feature analysis to identify important educational segments.
             </p>
             <Tags items={researchTechnologies} />
-            <ProjectNote label="Research overview">
-              <p>
-                My final-year design project explores how multiple sources of information can inform
-                educational video summarization. Audio, text, and visual features each offer a
-                different perspective on what matters within a lesson.
-              </p>
-              <p>
-                The diagram is a high-level conceptual research workflow, not a claim about
-                undocumented model architecture, benchmark performance, or deployment.
-              </p>
-            </ProjectNote>
           </div>
-          <div className="research-workflow">
+          <div
+            className="research-workflow"
+            role="img"
+            aria-label="Conceptual workflow: an educational video is analyzed for audio, text, and visual signals, then summarized into key educational moments. Not performance data."
+          >
             <div className="diagram-topline">
               <span>MULTIMODAL ANALYSIS</span>
               <span>FYP / 2026</span>
             </div>
             <div className="video-source">
-              <span className="play-icon" aria-hidden="true">
-                ▷
-              </span>
+              <DiagramIcon name="video" />
               <div>
-                <strong>Educational video</strong>
-                <small>One source. Multiple signals.</small>
+                <strong>Video</strong>
+                <small>One source</small>
               </div>
             </div>
             <div className="workflow-branch" aria-hidden="true">
@@ -266,30 +432,16 @@ export function ProjectSections() {
             </div>
             <div className="signal-cards">
               <div>
-                <span>01 / AUDIO</span>
-                <div className="waveform" aria-hidden="true">
-                  {[12, 24, 34, 16, 42, 28, 46, 22, 34, 16, 26].map((height, i) => (
-                    <i key={i} style={{ height }} />
-                  ))}
-                </div>
-                <small>Audio analysis</small>
+                <DiagramIcon name="audio" />
+                <small>Analyze audio</small>
               </div>
               <div>
-                <span>02 / TEXT</span>
-                <div className="transcript-lines" aria-hidden="true">
-                  <i />
-                  <i />
-                  <i />
-                  <i />
-                </div>
-                <small>Text analysis</small>
+                <DiagramIcon name="text" />
+                <small>Read transcript</small>
               </div>
               <div>
-                <span>03 / VISUAL</span>
-                <div className="frame-symbol" aria-hidden="true">
-                  <span />
-                </div>
-                <small>Visual features</small>
+                <DiagramIcon name="visual" />
+                <small>Inspect frames</small>
               </div>
             </div>
             <div className="workflow-branch reverse" aria-hidden="true">
@@ -298,12 +450,10 @@ export function ProjectSections() {
               <i />
             </div>
             <div className="workflow-result">
-              <span className="result-symbol" aria-hidden="true">
-                ↳
-              </span>
+              <DiagramIcon name="summary" />
               <div>
-                <strong>Important educational segments</strong>
-                <small>Research-based summarization</small>
+                <strong>Key moments</strong>
+                <small>Video summary</small>
               </div>
             </div>
             <div className="video-timeline" aria-hidden="true">
@@ -313,12 +463,13 @@ export function ProjectSections() {
               <i />
               <i />
             </div>
-            <p className="diagram-caption">Conceptual research workflow · Not performance data</p>
+            <p className="diagram-caption">Concept only · No performance data</p>
           </div>
         </article>
         <div className="supporting-research">
           {supportingResearch.map((project, index) => (
             <article key={project.title}>
+              <ResearchArtwork kind={project.visual} />
               <div className="research-row-heading">
                 <span className="mono">0{index + 2}</span>
                 <p className="eyebrow">{project.label}</p>
@@ -328,15 +479,13 @@ export function ProjectSections() {
               <div className="mini-workflow" aria-label="Conceptual workflow">
                 {project.flow.map((step, i) => (
                   <span key={step}>
-                    {step}
+                    <DiagramIcon name={researchStepIcons[project.visual][i]} />
+                    <span>{step}</span>
                     {i < 2 && <b aria-hidden="true">→</b>}
                   </span>
                 ))}
               </div>
               <small className="visual-disclaimer">Conceptual workflow</small>
-              <ProjectNote>
-                <p>{project.note}</p>
-              </ProjectNote>
             </article>
           ))}
         </div>
@@ -363,9 +512,6 @@ export function ProjectSections() {
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
                   <Tags items={project.tags} />
-                  <ProjectNote>
-                    <p>{project.note}</p>
-                  </ProjectNote>
                 </div>
               </article>
             ))}
@@ -401,13 +547,6 @@ export function ProjectSections() {
               An academic architecture design project exploring the components and design decisions
               behind an online learning platform—not a fully implemented application.
             </p>
-            <ProjectNote label="Architecture scope">
-              <p>
-                The focus is system structure, components, and design decisions. This simplified
-                conceptual diagram illustrates architectural thinking, not a verified implementation
-                or deployment.
-              </p>
-            </ProjectNote>
           </div>
           <div
             className="architecture-diagram"
@@ -415,19 +554,31 @@ export function ProjectSections() {
             aria-label="Conceptual e-learning system diagram: a learning interface connected to content, learning, and assessment components above a platform data layer"
           >
             <span className="diagram-topline">SYSTEM DESIGN / CONCEPTUAL</span>
-            <div className="arch-interface">Learning interface</div>
+            <div className="arch-interface">
+              <DiagramIcon name="interface" />
+              <span>Learn</span>
+            </div>
             <i className="arch-connector" />
             <div className="arch-components">
-              <span>Content</span>
-              <span>Learning</span>
-              <span>Assessment</span>
+              <div>
+                <DiagramIcon name="content" />
+                <small>Browse</small>
+              </div>
+              <div>
+                <DiagramIcon name="learning" />
+                <small>Learn</small>
+              </div>
+              <div>
+                <DiagramIcon name="assessment" />
+                <small>Assess</small>
+              </div>
             </div>
             <i className="arch-connector" />
             <div className="arch-data">
-              <span className="database-icon" aria-hidden="true" />
-              Platform information
+              <DiagramIcon name="data" />
+              <span>Store</span>
             </div>
-            <small>Academic design · Not implementation status</small>
+            <small>Concept only · Not implemented</small>
           </div>
         </article>
         <article className="security-project" id="security" data-reveal>
@@ -438,6 +589,15 @@ export function ProjectSections() {
               <br />
               question<span>.</span>
             </div>
+            <svg className="security-artwork" viewBox="0 0 120 90" fill="none">
+              <circle cx="60" cy="44" r="33" />
+              <ellipse cx="60" cy="44" rx="16" ry="33" />
+              <ellipse cx="60" cy="44" rx="33" ry="14" />
+              <path d="M51 44v-6a9 9 0 0 1 18 0v6m-21 0h24v19H48z" />
+              <circle className="security-node" cx="60" cy="11" r="3" />
+              <circle className="security-node" cx="27" cy="44" r="3" />
+              <circle className="security-node" cx="93" cy="44" r="3" />
+            </svg>
             <div className="document-lines">
               <i />
               <i />
@@ -455,13 +615,6 @@ export function ProjectSections() {
               Academic research exploring the potential impact of quantum computing on existing
               cryptographic systems and computer security.
             </p>
-            <ProjectNote label="Research scope">
-              <p>
-                This research considers the implications of emerging computational capabilities for
-                existing cryptographic systems. It is an academic investigation, not a claim of a
-                new cryptographic implementation or vulnerability discovery.
-              </p>
-            </ProjectNote>
           </div>
         </article>
         <div className="design-work" id="design" data-reveal>
@@ -482,9 +635,6 @@ export function ProjectSections() {
                   <h4>{project.title}</h4>
                   <p>{project.description}</p>
                   <Tags items={project.tags} />
-                  <ProjectNote>
-                    <p>{project.note}</p>
-                  </ProjectNote>
                 </div>
               </article>
             ))}

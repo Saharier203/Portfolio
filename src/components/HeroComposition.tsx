@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { profile } from "../data/portfolio";
-import { Arrow, PortraitPlaceholder, WindowBar } from "./Shared";
+import { Arrow, PortfolioMark, PortraitPlaceholder, WindowBar } from "./Shared";
 
 const navigation = [
   ["Home", "home"],
@@ -117,10 +117,9 @@ export function HeroComposition() {
         inert={!navPinned}
       >
         <a className="wordmark" href="#home">
-          <span className="brand-mark">S</span>
+          <PortfolioMark />
           <span>
             Saharier<span className="accent">.</span>
-            <small>Personal Portfolio</small>
           </span>
         </a>
         <button
@@ -139,7 +138,7 @@ export function HeroComposition() {
       </header>
       <section className="hero-section" id="home">
         <div className="page-topline">
-          <span>PERSONAL PORTFOLIO / SAHARIER</span>
+          <span>SAHARIER</span>
           <span>BANGLADESH · UIU</span>
         </div>
         <div className="hero-stage" ref={stage}>
@@ -147,10 +146,9 @@ export function HeroComposition() {
             <WindowBar label="saharier / portfolio" />
             <header className="main-navigation" ref={heroNavigation}>
               <a className="wordmark" href="#home">
-                <span className="brand-mark">S</span>
+                <PortfolioMark />
                 <span>
                   Saharier<span className="accent">.</span>
-                  <small>Personal Portfolio</small>
                 </span>
               </a>
               <button
@@ -230,11 +228,11 @@ export function HeroComposition() {
                 </h2>
                 <ul>
                   {[
-                    "Artificial Intelligence",
-                    "Machine Learning",
-                    "Software Engineering",
-                    "Research & Development",
-                    "Automation",
+                    "Multimodal AI & Video Analysis",
+                    "Computer Vision & Language Models",
+                    "Educational Technology",
+                    "Software Application Development",
+                    "Workflow Automation",
                   ].map((item, i) => (
                     <li key={item}>
                       <span className="mono">0{i + 1}</span>

@@ -1,5 +1,16 @@
 import { profile } from "../data/portfolio";
 
+export function PortfolioMark({ className = "" }: { className?: string }) {
+  return (
+    <span className={`brand-mark portfolio-mark ${className}`} aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M18 7.5c-1.2-1.5-3.1-2.3-5.8-2.3-3 0-5.2 1.4-5.2 3.6 0 2.4 2.3 3.1 5.2 3.7 2.9.6 4.8 1.2 4.8 3.5 0 2.3-2.2 3.9-5.5 3.9-2.3 0-4.5-.8-6-2.5" />
+        <path d="M15 5h3.2v3.2" />
+      </svg>
+    </span>
+  );
+}
+
 export function Arrow({ up = false }: { up?: boolean }) {
   return (
     <svg
