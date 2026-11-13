@@ -14,18 +14,47 @@
   --muted: #a0a59b;
   --accent: #ee6164;
   --line: rgba(233, 237, 224, 0.11);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --heading-1: clamp(2.25rem, 4vw, 3.5rem);
+  --heading-2: clamp(1.75rem, 3.7vw, 3.25rem);
+  --heading-3: clamp(1.25rem, 2.5vw, 2.25rem);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 30px;
+    scroll-padding-top: 82px;
   }
   body {
     font-family: "Manrope", sans-serif;
     background: var(--background);
     color: var(--text);
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+  }
+  p {
+    max-width: 65ch;
+  }
+  h1,
+  h2,
+  h3 {
+    color: var(--text);
+    text-wrap: balance;
+  }
+  h1 {
+    font-size: var(--heading-1);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-size: var(--heading-2);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  h3 {
+    font-size: var(--heading-3);
+    line-height: 1.2;
   }
   a,
   button,
@@ -33,6 +62,17 @@
   textarea,
   summary {
     -webkit-tap-highlight-color: transparent;
+  }
+  a,
+  button,
+  summary {
+    transition:
+      color 0.25s var(--ease-out),
+      background-color 0.25s var(--ease-out),
+      border-color 0.25s var(--ease-out),
+      box-shadow 0.25s var(--ease-out),
+      filter 0.25s var(--ease-out),
+      transform 0.25s var(--ease-out);
   }
   a {
     color: inherit;
@@ -52,12 +92,9 @@
     background: #aa4248;
   }
   :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 5px;
+    outline: 2px solid #ff9999;
+    outline-offset: 4px;
   }
-  h1,
-  h2,
-  h3,
   h4 {
     text-wrap: balance;
   }
@@ -92,21 +129,25 @@
   width: 18px;
   height: 18px;
   flex: none;
+  transition: transform 0.25s var(--ease-out);
 }
 .button {
   display: inline-flex;
-  min-height: 46px;
+  min-height: 48px;
   align-items: center;
   justify-content: center;
-  gap: 22px;
-  padding: 12px 19px;
+  gap: 16px;
+  padding: 12px 24px;
   border: 1px solid transparent;
-  border-radius: 3px;
-  font-size: 11px;
-  font-weight: 700;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
   transition:
-    background 0.25s,
-    transform 0.25s;
+    background-color 0.25s var(--ease-out),
+    color 0.25s var(--ease-out),
+    filter 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
 }
 .button.primary {
   color: #10120f;
@@ -114,25 +155,43 @@
 }
 .button.primary:hover {
   background: #f78384;
+  filter: brightness(1.04);
+  box-shadow: 0 8px 20px #ee61643b;
   transform: translateY(-2px);
+}
+.button:not(.primary):hover {
+  border-color: #768367;
+  background-color: #232b1b;
+  box-shadow: 0 8px 20px #0005;
+  transform: translateY(-2px);
+}
+.button:active,
+.copy-button:active,
+.menu-toggle:active {
+  transform: translateY(0) scale(0.98);
 }
 .text-link {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
   gap: 13px;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
-  transition: color 0.25s;
+  transition:
+    color 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
 }
 .text-link:hover {
   color: var(--accent);
 }
 .text-link .arrow-icon {
-  transition: translate 0.25s;
+  transition: translate 0.25s var(--ease-out);
 }
 .text-link:hover .arrow-icon {
   translate: 3px 0;
+}
+a:not(.text-link):hover .arrow-icon {
+  transform: translateX(3px);
 }
 .skip-link {
   position: fixed;
@@ -225,17 +284,17 @@
 .about-copy h2,
 .contact-copy h2 {
   margin-top: 20px;
-  font-size: clamp(34px, 3.7vw, 52px);
+  font-size: var(--heading-2);
   font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -2px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 .section-header > p {
   max-width: 350px;
   padding-bottom: 4px;
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.9;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
 }
 .tags {
   display: flex;
@@ -272,7 +331,7 @@
   color: var(--accent);
   font-size: 19px;
   font-weight: 400;
-  transition: rotate 0.25s;
+  transition: rotate 0.25s var(--ease-out);
 }
 .project-note[open] summary > span {
   rotate: 45deg;
@@ -280,22 +339,22 @@
 .note-content {
   padding: 2px 0 17px;
   color: #adb3a4;
-  font-size: 12px;
-  line-height: 1.8;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
 }
 .note-content p + p {
   margin-top: 12px;
 }
 .will-reveal {
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(16px);
+  transition:
+    opacity 0.5s var(--ease-out),
+    transform 0.5s var(--ease-out);
 }
 .will-reveal.revealed {
   opacity: 1;
   transform: translateY(0);
-  transition:
-    opacity 0.45s ease,
-    transform 0.45s ease;
 }
 
 /* Reference-inspired overlapping browser composition */
@@ -335,7 +394,7 @@
   background: #0e120d;
   box-shadow: 0 20px 60px #0006;
   transform: translate(var(--panel-x), var(--panel-y)) rotate(-1.4deg);
-  transition: transform 0.35s ease-out;
+  transition: transform 0.3s var(--ease-out);
 }
 .main-navigation {
   display: flex;
@@ -344,6 +403,41 @@
   align-items: center;
   padding: 18px 30px;
   border-bottom: 1px solid #ffffff06;
+}
+.persistent-navigation {
+  position: fixed;
+  z-index: 50;
+  top: 12px;
+  left: 50%;
+  display: flex;
+  width: min(1180px, calc(100% - 32px));
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 8px 18px;
+  border: 1px solid rgba(233, 237, 224, 0.16);
+  border-radius: 12px;
+  background: rgba(15, 19, 14, 0.94);
+  box-shadow: 0 12px 35px #0007;
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, -140%);
+  transition:
+    opacity 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out),
+    visibility 0s linear 0.25s;
+}
+.persistent-navigation.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  transition:
+    opacity 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out),
+    visibility 0s;
 }
 .nav-links {
   display: flex;
@@ -356,7 +450,6 @@
   align-items: center;
   font-size: 9px;
   color: #b8bdb0;
-  transition: color 0.2s;
   position: relative;
 }
 .nav-links a:hover,
@@ -374,6 +467,18 @@
 }
 .menu-toggle {
   display: none;
+  border-radius: 8px;
+  transition:
+    background-color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+.menu-toggle:hover {
+  border-color: #768367;
+  background-color: #1c2318;
+  box-shadow: 0 6px 16px #0004;
+  transform: translateY(-2px);
 }
 .hero-content {
   display: grid;
@@ -392,10 +497,10 @@
 }
 .hero-copy h1 {
   margin-top: 17px;
-  font-size: clamp(35px, 3.5vw, 51px);
+  font-size: var(--heading-1);
   font-weight: 700;
-  letter-spacing: -2px;
-  line-height: 1.07;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 .hero-copy h1 > span:not(.accent) {
   font-weight: 500;
@@ -410,8 +515,8 @@
   max-width: 370px;
   margin-top: 21px;
   color: #b1b7a8;
-  font-size: 11px;
-  line-height: 1.9;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
 }
 .hero-actions {
   display: flex;
@@ -420,12 +525,12 @@
   margin-top: 28px;
 }
 .hero-actions .button {
-  font-size: 9px;
-  padding: 10px 14px;
-  gap: 11px;
+  font-size: 14px;
+  padding: 12px 24px;
+  gap: 12px;
 }
 .hero-actions .text-link {
-  font-size: 9px;
+  font-size: 14px;
   gap: 8px;
 }
 .hero-actions .arrow-icon {
@@ -539,7 +644,7 @@
   background: #151713;
   box-shadow: 0 18px 50px #0004;
   transform: translate(calc(var(--panel-x) * -0.5), calc(var(--panel-y) * -0.5)) rotate(2.4deg);
-  transition: transform 0.35s ease-out;
+  transition: transform 0.3s var(--ease-out);
 }
 .info-content {
   padding: 23px 24px 25px 75px;
@@ -575,6 +680,7 @@
   align-self: center;
   color: var(--accent);
 }
+
 a.info-contact:hover strong {
   color: var(--accent);
 }
@@ -585,9 +691,10 @@ a.info-contact:hover strong {
   margin-top: 25px;
 }
 .info-block h2 {
-  font-size: 16px;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.2;
   font-weight: 600;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.02em;
 }
 .info-block ul {
   margin-top: 11px;
@@ -615,12 +722,14 @@ a.info-contact:hover strong {
 }
 .academics h2 {
   margin-top: 9px;
-  font-size: 17px;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 .academics p {
   margin-top: 9px;
-  font-size: 9px;
-  line-height: 1.7;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
   color: #b7bfa9;
 }
 .academics > div {
@@ -710,8 +819,8 @@ a.info-contact:hover strong {
 .about-copy > p:not(.eyebrow) {
   margin-top: 25px;
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.95;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
 }
 .about-facts {
   display: flex;
@@ -754,7 +863,6 @@ a.info-contact:hover strong {
   align-items: center;
   color: #b1b8a8;
   font-size: 10px;
-  transition: color 0.25s;
 }
 .category-navigation a span {
   color: #929c86;
@@ -782,10 +890,10 @@ a.info-contact:hover strong {
   margin-right: 3px;
 }
 .category-header h2 {
-  font-size: clamp(29px, 3.2vw, 44px);
-  line-height: 1.1;
+  font-size: clamp(1.8rem, 3.2vw, 2.75rem);
+  line-height: 1.15;
   font-weight: 600;
-  letter-spacing: -1.6px;
+  letter-spacing: -0.02em;
 }
 .project-count {
   font:
@@ -802,6 +910,15 @@ a.info-contact:hover strong {
   grid-template-columns: 1fr 1fr;
   border: 1px solid #3b4033;
   background: #121610;
+  transition:
+    border-color 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+.featured-research:hover {
+  border-color: #ee61647a;
+  box-shadow: 0 14px 32px #0004;
+  transform: translateY(-4px);
 }
 .research-copy {
   padding: 40px;
@@ -823,10 +940,10 @@ a.info-contact:hover strong {
 }
 .research-copy h3 {
   margin-top: 24px;
-  font-size: clamp(27px, 2.5vw, 36px);
+  font-size: clamp(1.7rem, 2.5vw, 2.25rem);
   font-weight: 600;
   line-height: 1.15;
-  letter-spacing: -1.3px;
+  letter-spacing: -0.02em;
 }
 .research-copy h3 > span {
   display: block;
@@ -839,8 +956,8 @@ a.info-contact:hover strong {
 .research-copy > p {
   margin-top: 23px;
   color: #aab39c;
-  font-size: 12px;
-  line-height: 1.9;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
 }
 .research-workflow {
   display: flex;
@@ -1064,10 +1181,18 @@ a.info-contact:hover strong {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  transition: background 0.25s;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
 }
 .supporting-research > article:hover {
   background: #171d12;
+  border-color: #ee61647a;
+  box-shadow: 0 10px 24px #0004;
+  transform: translateY(-4px);
 }
 .supporting-research > article + article {
   border-left: 1px solid var(--line);
@@ -1087,15 +1212,15 @@ a.info-contact:hover strong {
   color: #bbc4af;
 }
 .supporting-research h3 {
-  font-size: 22px;
+  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
   font-weight: 600;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.02em;
   line-height: 1.2;
   margin-top: 22px;
 }
 .supporting-research > article > p {
-  font-size: 11px;
-  line-height: 1.85;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
   margin-top: 14px;
   color: var(--muted);
 }
@@ -1174,16 +1299,16 @@ a.info-contact:hover strong {
   color: #c3b2a0;
 }
 .software-copy h3 {
-  font-size: 33px;
-  letter-spacing: -1px;
+  font-size: clamp(1.65rem, 2.7vw, 2.25rem);
+  letter-spacing: -0.02em;
   line-height: 1.15;
   margin-top: 13px;
   font-weight: 600;
 }
 .software-copy > p:not(.eyebrow) {
   color: var(--muted);
-  font-size: 12px;
-  line-height: 1.9;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
   margin-top: 19px;
 }
 .product-preview {
@@ -1191,6 +1316,15 @@ a.info-contact:hover strong {
   background: #1a2015;
   min-width: 0;
   overflow: hidden;
+  transition:
+    border-color 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+.product-preview:hover {
+  border-color: #ee61647a;
+  box-shadow: 0 12px 28px #0005;
+  transform: translateY(-4px);
 }
 .preview-art {
   height: 340px;
@@ -1199,13 +1333,19 @@ a.info-contact:hover strong {
   justify-content: center;
   overflow: hidden;
   padding: 30px;
-  transition: background 0.3s;
+  transition: background-color 0.25s var(--ease-out);
 }
 .preview-art > div {
-  transition: transform 0.4s ease;
+  transition: transform 0.25s var(--ease-out);
 }
 .product-preview:hover .preview-art > div {
   transform: translateY(-3px);
+}
+.preview-art img {
+  transition: transform 0.25s var(--ease-out);
+}
+.product-preview:hover .preview-art img {
+  transform: scale(1.03);
 }
 .product-preview figcaption {
   position: relative;
@@ -1536,20 +1676,28 @@ a.info-contact:hover strong {
   border: 1px solid var(--line);
   background: #11150e;
   align-items: center;
-  scroll-margin-top: 35px;
+  transition:
+    border-color 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+.architecture-project:hover {
+  border-color: #ee61647a;
+  box-shadow: 0 14px 32px #0004;
+  transform: translateY(-4px);
 }
 .architecture-project h3 {
-  font-size: 29px;
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
   line-height: 1.2;
   font-weight: 600;
-  letter-spacing: -0.8px;
+  letter-spacing: -0.02em;
   margin-top: 17px;
 }
 .architecture-project > div > p:not(.eyebrow) {
   margin-top: 20px;
   color: var(--muted);
-  font-size: 12px;
-  line-height: 1.9;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
 }
 .architecture-diagram {
   border: 1px solid #3a452f;
@@ -1620,7 +1768,15 @@ a.info-contact:hover strong {
   margin-top: 60px;
   padding: 0 0 60px;
   border-bottom: 1px solid var(--line);
-  scroll-margin-top: 35px;
+  transition:
+    border-color 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+.security-project:hover {
+  border-color: #ee61647a;
+  box-shadow: 0 14px 32px #0004;
+  transform: translateY(-4px);
 }
 .research-document {
   min-height: 320px;
@@ -1681,8 +1837,8 @@ a.info-contact:hover strong {
   color: #bdc9b0;
 }
 .security-project h3 {
-  font-size: 30px;
-  letter-spacing: -0.9px;
+  font-size: clamp(1.6rem, 2.5vw, 1.9rem);
+  letter-spacing: -0.02em;
   line-height: 1.2;
   font-weight: 600;
   margin-top: 19px;
@@ -1690,17 +1846,17 @@ a.info-contact:hover strong {
 .security-project > div > p:not(.eyebrow) {
   margin-top: 20px;
   color: var(--muted);
-  font-size: 12px;
-  line-height: 1.9;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
 }
 .design-work {
   padding-top: 60px;
 }
 .design-heading h3 {
-  font-size: 32px;
+  font-size: clamp(1.7rem, 2.6vw, 2.1rem);
   line-height: 1.2;
   font-weight: 600;
-  letter-spacing: -1px;
+  letter-spacing: -0.02em;
   margin-top: 20px;
 }
 .design-gallery {
@@ -1708,6 +1864,19 @@ a.info-contact:hover strong {
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   margin-top: 35px;
+}
+.design-gallery > article {
+  outline: 1px solid transparent;
+  outline-offset: 6px;
+  transition:
+    outline-color 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+.design-gallery > article:hover {
+  outline-color: #ee61647a;
+  box-shadow: 0 12px 28px #0004;
+  transform: translateY(-4px);
 }
 .design-copy {
   padding: 25px 0 0;
@@ -1724,8 +1893,8 @@ a.info-contact:hover strong {
 }
 .design-copy > p:not(.eyebrow) {
   margin-top: 14px;
-  font-size: 12px;
-  line-height: 1.8;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
   color: var(--muted);
 }
 .preview-design .preview-art {
@@ -1808,7 +1977,7 @@ a.info-contact:hover strong {
   font-size: 8px;
 }
 .skill-group h3 {
-  font-size: 14px;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
   font-weight: 600;
 }
 .skill-group > p {
@@ -1831,8 +2000,8 @@ a.info-contact:hover strong {
 }
 .contact-copy > p:not(.eyebrow):not(.availability) {
   margin-top: 24px;
-  font-size: 13px;
-  line-height: 1.9;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
   color: var(--muted);
   max-width: 390px;
 }
@@ -1848,7 +2017,9 @@ a.info-contact:hover strong {
   border-bottom: 1px solid #465039;
   font-size: clamp(13px, 1.4vw, 19px);
   letter-spacing: -0.4px;
-  transition: color 0.25s;
+  transition:
+    color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out);
 }
 .contact-email:hover {
   color: var(--accent);
@@ -1900,7 +2071,7 @@ a.info-contact:hover strong {
 .form-field label {
   display: block;
   color: #d8dfce;
-  font-size: 11px;
+  font-size: 14px;
 }
 .form-field label > span {
   color: var(--accent);
@@ -1917,7 +2088,7 @@ a.info-contact:hover strong {
   padding: 10px 0;
   background: transparent;
   color: #e3e9da;
-  font-size: 11px;
+  font-size: 16px;
   line-height: 1.7;
   outline-offset: 4px;
 }
@@ -1946,23 +2117,35 @@ a.info-contact:hover strong {
   margin-top: 22px;
 }
 .copy-button {
-  min-height: 44px;
-  background: none;
-  border: 0;
-  color: #c1cdb1;
-  font-size: 10px;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 1px solid #49513f;
+  border-radius: 9px;
+  background: #1a2015;
+  color: #d3ddc6;
+  font-size: 14px;
+  font-weight: 600;
+  transition:
+    background-color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+.copy-button:hover {
+  border-color: #768367;
+  background: #232b1b;
+  box-shadow: 0 7px 18px #0004;
+  transform: translateY(-2px);
 }
 .form-disclaimer {
   margin-top: 17px;
-  font-size: 9px;
+  font-size: 14px;
   color: #a9b79a;
   line-height: 1.8;
 }
 .form-status {
   margin-top: 10px;
-  font-size: 10px;
+  font-size: 14px;
   color: #e1c5ae;
   line-height: 1.8;
 }
@@ -2055,13 +2238,13 @@ a.info-contact:hover strong {
     gap: 18px;
   }
   .hero-copy h1 {
-    font-size: 36px;
+    font-size: var(--heading-1);
   }
   .hero-subheading {
     font-size: 11px;
   }
   .hero-introduction {
-    font-size: 10px;
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
   }
   .hero-actions {
     gap: 12px;
@@ -2100,7 +2283,7 @@ a.info-contact:hover strong {
     padding: 23px;
   }
   .supporting-research h3 {
-    font-size: 20px;
+    font-size: clamp(1.25rem, 1.8vw, 1.55rem);
   }
   .software-project {
     gap: 40px;
@@ -2136,10 +2319,10 @@ a.info-contact:hover strong {
     grid-template-columns: 1.25fr 1fr;
   }
   .hero-copy h1 {
-    font-size: 43px;
+    font-size: var(--heading-1);
   }
   .hero-introduction {
-    font-size: 12px;
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
   }
   .hero-subheading {
     font-size: 13px;
@@ -2197,10 +2380,10 @@ a.info-contact:hover strong {
     gap: 40px;
   }
   .about-copy h2 {
-    font-size: 35px;
+    font-size: clamp(1.75rem, 4vw, 2.4rem);
   }
   .about-copy > p:not(.eyebrow) {
-    font-size: 12px;
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
   }
   .academic-stamp {
     padding: 12px;
@@ -2219,7 +2402,7 @@ a.info-contact:hover strong {
     gap: 35px;
   }
   .section-header h2 {
-    font-size: 35px;
+    font-size: var(--heading-2);
   }
   .featured-research {
     grid-template-columns: 1fr;
@@ -2240,13 +2423,13 @@ a.info-contact:hover strong {
     padding: 28px;
   }
   .supporting-research h3 {
-    font-size: 24px;
+    font-size: clamp(1.25rem, 1.8vw, 1.55rem);
   }
   .mini-workflow {
     max-width: 450px;
   }
   .software-copy h3 {
-    font-size: 27px;
+    font-size: clamp(1.65rem, 2.7vw, 2.25rem);
   }
   .preview-art {
     height: 300px;
@@ -2260,13 +2443,13 @@ a.info-contact:hover strong {
     padding: 25px;
   }
   .architecture-project h3 {
-    font-size: 24px;
+    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
   }
   .architecture-diagram {
     padding: 20px;
   }
   .security-project h3 {
-    font-size: 26px;
+    font-size: clamp(1.6rem, 2.5vw, 1.9rem);
   }
   .research-document {
     padding: 30px 25px;
@@ -2301,7 +2484,7 @@ a.info-contact:hover strong {
 }
 @media (max-width: 640px) {
   html {
-    scroll-padding-top: 20px;
+    scroll-padding-top: 72px;
   }
   .hero-section {
     padding: 20px 16px 0;
@@ -2324,6 +2507,16 @@ a.info-contact:hover strong {
   .main-navigation {
     position: relative;
     padding: 12px 20px;
+  }
+  .persistent-navigation {
+    top: 8px;
+    width: calc(100% - 20px);
+    padding: 6px 12px;
+  }
+  .persistent-navigation .nav-links {
+    left: 0;
+    right: 0;
+    border-radius: 0 0 10px 10px;
   }
   .wordmark {
     font-size: 16px;
@@ -2378,25 +2571,25 @@ a.info-contact:hover strong {
     font-size: 18px;
   }
   .hero-copy h1 {
-    font-size: clamp(36px, 9.6vw, 51px);
-    letter-spacing: -1.8px;
+    font-size: var(--heading-1);
+    letter-spacing: -0.02em;
   }
   .hero-subheading {
     margin-top: 16px;
     font-size: 12px;
   }
   .hero-introduction {
-    font-size: 11px;
-    line-height: 1.9;
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
+    line-height: 1.6;
   }
   .hero-actions {
     gap: 20px;
   }
   .hero-actions .button {
-    font-size: 10px;
+    font-size: 14px;
   }
   .hero-actions .text-link {
-    font-size: 10px;
+    font-size: 14px;
   }
   .hero-portrait {
     max-width: 230px;
@@ -2432,7 +2625,7 @@ a.info-contact:hover strong {
     margin-top: 28px;
   }
   .info-block h2 {
-    font-size: 20px;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
   }
   .info-block li {
     font-size: 11px;
@@ -2442,7 +2635,7 @@ a.info-contact:hover strong {
     font-size: 9px;
   }
   .academics p {
-    font-size: 11px;
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
   }
   .academics > div {
     font-size: 9px;
@@ -2482,10 +2675,10 @@ a.info-contact:hover strong {
     padding: 14px 18px;
   }
   .about-copy h2 {
-    font-size: 38px;
+    font-size: clamp(1.75rem, 4vw, 2.4rem);
   }
   .about-copy > p:not(.eyebrow) {
-    font-size: 13px;
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
   }
   .about-facts {
     gap: 20px 30px;
@@ -2497,12 +2690,12 @@ a.info-contact:hover strong {
   }
   .section-header h2,
   .contact-copy h2 {
-    font-size: 37px;
-    letter-spacing: -1.6px;
+    font-size: var(--heading-2);
+    letter-spacing: -0.02em;
   }
   .section-header > p {
     max-width: none;
-    font-size: 12px;
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
   }
   .projects-introduction {
     padding-top: 10px;
@@ -2524,7 +2717,7 @@ a.info-contact:hover strong {
     font-size: 8px;
   }
   .category-header h2 {
-    font-size: 32px;
+    font-size: clamp(1.8rem, 3.2vw, 2.75rem);
   }
   .project-count {
     font-size: 7px;
@@ -2533,7 +2726,7 @@ a.info-contact:hover strong {
     padding: 26px;
   }
   .research-copy h3 {
-    font-size: 29px;
+    font-size: clamp(1.7rem, 2.5vw, 2.25rem);
   }
   .research-copy h3 > span {
     font-size: 0.78em;
@@ -2585,10 +2778,10 @@ a.info-contact:hover strong {
     padding: 25px;
   }
   .supporting-research h3 {
-    font-size: 23px;
+    font-size: clamp(1.25rem, 1.8vw, 1.55rem);
   }
   .supporting-research > article > p {
-    font-size: 12px;
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
   }
   .software-project {
     grid-template-columns: 1fr;
@@ -2605,7 +2798,7 @@ a.info-contact:hover strong {
     padding: 0 5px;
   }
   .software-copy h3 {
-    font-size: 29px;
+    font-size: clamp(1.65rem, 2.7vw, 2.25rem);
   }
   .preview-art {
     height: 310px;
@@ -2620,7 +2813,7 @@ a.info-contact:hover strong {
     gap: 30px;
   }
   .architecture-project h3 {
-    font-size: 27px;
+    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
   }
   .architecture-diagram {
     padding: 20px 15px;
@@ -2641,10 +2834,10 @@ a.info-contact:hover strong {
     font-size: 43px;
   }
   .security-project h3 {
-    font-size: 28px;
+    font-size: clamp(1.6rem, 2.5vw, 1.9rem);
   }
   .design-heading h3 {
-    font-size: 29px;
+    font-size: clamp(1.7rem, 2.6vw, 2.1rem);
   }
   .design-gallery {
     grid-template-columns: 1fr;
@@ -2682,9 +2875,9 @@ a.info-contact:hover strong {
     justify-content: space-between;
   }
   .form-actions .button {
-    font-size: 10px;
+    font-size: 14px;
     gap: 13px;
-    padding-inline: 14px;
+    padding: 12px 24px;
   }
   .site-footer {
     width: calc(100% - 40px);
@@ -2728,7 +2921,16 @@ a.info-contact:hover strong {
     transform: none;
   }
   .product-preview:hover .preview-art > div,
-  .button:hover {
+  .product-preview:hover .preview-art img,
+  .featured-research:hover,
+  .supporting-research > article:hover,
+  .product-preview:hover,
+  .architecture-project:hover,
+  .security-project:hover,
+  .design-gallery > article:hover,
+  .button:hover,
+  .copy-button:hover,
+  .menu-toggle:hover {
     transform: none;
   }
 }
