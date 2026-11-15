@@ -4,10 +4,16 @@ import "lenis/dist/lenis.css";
 import { HeroComposition } from "./components/HeroComposition";
 import { ProjectSections } from "./components/ProjectSections";
 import { ContactSection } from "./components/ContactSection";
+import { FYDPProjectPage } from "./components/FYDPProjectPage";
 import { Arrow, PortfolioMark, PortraitPlaceholder } from "./components/Shared";
 import { profile, skills } from "./data/portfolio";
 
 export default function App() {
+  const pathname = window.location.pathname.replace(/\/+$/, "");
+  return pathname === "/projects/fydp" ? <FYDPProjectPage /> : <PortfolioHome />;
+}
+
+function PortfolioHome() {
   useEffect(() => {
     // The managed dev server caches site configuration until its next restart.
     document.title = "Saharier — Computer Science, Software & Research";

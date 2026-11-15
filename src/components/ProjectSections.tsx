@@ -7,7 +7,7 @@ import {
   type Project,
   type ResearchVisualKind,
 } from "../data/portfolio";
-import { Tags, WindowBar } from "./Shared";
+import { Arrow, Tags, WindowBar } from "./Shared";
 
 const categories = [
   ["Research & Intelligence", "research"],
@@ -408,6 +408,9 @@ export function ProjectSections() {
               text, and visual feature analysis to identify important educational segments.
             </p>
             <Tags items={researchTechnologies} />
+            <a className="button primary fydp-details-button" href="/projects/fydp">
+              See Details <Arrow />
+            </a>
           </div>
           <div
             className="research-workflow"
