@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/projects/fydp",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/projects/fydp/",
+      "destination": "/index.html"
+    }
+  ]
+}
